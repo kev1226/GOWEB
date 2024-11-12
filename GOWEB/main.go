@@ -1,17 +1,22 @@
-// main.go
 package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<h1>¡Hola Mundo desde Go!</h1>")
-}
-
 func main() {
-	http.HandleFunc("/", home)
-	fmt.Println("Servidor en el puerto 8080")
-	http.ListenAndServe(":8080", nil)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Definir un puerto por defecto en caso de que no se proporcione
+	}
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "¡Hola, mundo!")
+	})
+
+	log.Printf("Servidor escuchando en el puerto %s\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
