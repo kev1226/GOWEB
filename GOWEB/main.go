@@ -10,7 +10,7 @@ import (
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080" // Definir un puerto por defecto en caso de que no se proporcione
+		port = "80" // Definir un puerto por defecto en caso de que no se proporcione
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
